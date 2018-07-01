@@ -771,7 +771,9 @@ impl InnerConnection {
 
         unsafe {
             let mut db: *mut ffi::sqlite3 = mem::uninitialized();
-            let r = ffi::sqlite3_open_v2(c_path.as_ptr(), &mut db, flags.bits(), ptr::null());
+            let vfs_name = CString::new("indexeddb").unwrap();
+            // let r = ffi::sqlite3_open_v2(c_path.as_ptr(), &mut db, flags.bits(), ptr::null());
+            let r = ffi::sqlite3_open_v2(c_path.as_ptr(), &mut db, flags.bits(), vfs_name.as_ptr());
             if r != ffi::SQLITE_OK {
                 let e = if db.is_null() {
                     error_from_sqlite_code(r, None)

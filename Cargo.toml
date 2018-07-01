@@ -16,6 +16,7 @@ appveyor = { repository = "jgallagher/rusqlite" }
 
 [lib]
 name = "rusqlite"
+crate-type = ["cdylib"]
 
 [features]
 load_extension = []
